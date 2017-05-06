@@ -1,1 +1,1 @@
-from .locate import Locate
+from .location import Location

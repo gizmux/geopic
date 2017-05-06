@@ -2,7 +2,7 @@ import logging
 
 from pygeocoder import Geocoder, GeocoderError
 
-class Locate:
+class Location:
 
 	def __init__(self, lat, lng):
 		self.lat = lat
