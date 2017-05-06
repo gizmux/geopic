@@ -8,4 +8,9 @@ setup(name='geopic',
       author_email='gizmux@gmail.com',
       license='MIT',
       packages=['geopic'],
+      install_requires=[
+          'pygeocoder',
+      ],
+      test_suite='nose.collector',
+      tests_require=['nose'],
       zip_safe=False)
