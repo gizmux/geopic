@@ -10,6 +10,7 @@ setup(name='geopic',
       packages=['geopic'],
       install_requires=[
           'pygeocoder',
+          'exifread'
       ],
       test_suite='nose.collector',
       tests_require=['nose'],
