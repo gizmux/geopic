@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 import exifread
 
@@ -12,6 +13,7 @@ class PicInfo:
         self.picFileName    = picFileName
         self.valid          = False
         self.tags           = None
+        self._datetime      = None
         try:
             with open(picFileName, 'rb') as f:
                 self.tags = exifread.process_file(f, details=False)
@@ -25,3 +27,24 @@ class PicInfo:
 
     def isValid(self):
         return self.valid
+
+    def localDateTime(self):
+        """
+        Return a dateTime object representig the date and time the picture
+        was taken. This is in the local timzone of the location that the
+        picture was taken.
+        """
+        if self._datetime is not None:
+            return self._datetime
+        if not self.isValid():
+            return None
+
+        if "EXIF DateTimeOriginal" in self.tags:
+            dateTimeString = self.tags["EXIF DateTimeOriginal"].values
+            self._datetime = datetime.strptime(dateTimeString,
+                '%Y:%m:%d %H:%M:%S')
+        else:
+            logging.warning("No DateTime information found in '{}'".format(
+                self.picFileName))
+
+        return self._datetime
