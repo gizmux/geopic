@@ -14,8 +14,8 @@ class TestPicInfo(TestCase):
         pInfo = geopic.PicInfo("./geopic/tests/pic_crete.jpg")
         self.assertTrue(pInfo.isValid())
 
-    def test_localDateTime_extraction(self):
+    def test_dateTime_extraction(self):
         pInfo = geopic.PicInfo("./geopic/tests/pic_crete.jpg")
         expectedDateTime = datetime(2016, 9, 7, 13, 55, 34)
-        self.assertTrue(expectedDateTime == pInfo.localDateTime())
+        self.assertTrue(expectedDateTime == pInfo.dateTime())
 

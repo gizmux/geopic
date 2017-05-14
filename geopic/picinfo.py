@@ -28,7 +28,7 @@ class PicInfo:
     def isValid(self):
         return self.valid
 
-    def localDateTime(self):
+    def dateTime(self):
         """
         Return a dateTime object representig the date and time the picture
         was taken. This is in the local timzone of the location that the
