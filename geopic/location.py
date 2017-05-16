@@ -1,6 +1,7 @@
 import logging
 from operator import itemgetter
 
+#TODO: replace this with https://github.com/googlemaps/google-maps-services-python
 from pygeocoder import Geocoder, GeocoderError
 
 class Location:
@@ -12,7 +13,9 @@ class Location:
         self._country   = None
         self._zones     = None
         try:
-            self.geocoder_results = Geocoder.reverse_geocode(self.lat, self.lng)
+            #TODO: not a good idea to expose this publicly...
+            geocoder = Geocoder(api_key="AIzaSyB-QYiv1mtdZKf0kMtX_u947Y-0rP_WB50")
+            self.geocoder_results = geocoder.reverse_geocode(self.lat, self.lng)
         except GeocoderError as ge:
             logging.error("reverse_geocode for ({0},{1}) failed: '{2}'".format(
                 self.lat, self.lng, ge))
