@@ -12,14 +12,22 @@ class Organize:
 
     def _visitPath(self, dirname, filenames):
         for file in filenames:
-            fileNamePath = dirname+file
-            if imghdr.what(fileNamePath) == 'jpeg':
-                print fileNamePath
+            filenameWithPath = path.join(dirname, file)
+            if path.isfile(filenameWithPath) and (
+                imghdr.what(filenameWithPath) == 'jpeg'):
+                # found a jpeg file. Lets add it to our internal
+                # picinfo structure
+                if filenameWithPath not in self._picinfo:
+                    self._picinfo[filenameWithPath] = PicInfo(filenameWithPath)
+                else:
+                    logging.warning(
+                        "Found '{0}' more than once while traversing '{1}'".
+                        format(filenameWithPath, dirname))
 
     def __init__(self, picFolderPath):
         self.picFolderPath  = picFolderPath
         self.valid          = False
-        self._picinfo       = None
+        self._picinfo       = dict()
 
         try:
             path.walk(picFolderPath, Organize._visitPath, self)
@@ -29,7 +37,7 @@ class Organize:
             #TODO: CONSIDER: is this the best strategy here ?
             return
 
-        if self._picinfo is not None:
+        if len(self._picinfo) > 0:
             self.valid = True
 
     def isValid(self):
