@@ -29,6 +29,12 @@ class PicInfo:
         if self.tags is not None:
             self.valid = True
 
+    def __str__(self):
+        if not self.isValid():
+            return "'{0}' has invalid info!"
+        return "'{0}' taken on {1} in {2}".format(self.picFileName,
+            self.dateTime(), self.location())
+
     def isValid(self):
         return self.valid
 

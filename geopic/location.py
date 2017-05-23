@@ -6,9 +6,9 @@ from pygeocoder import Geocoder, GeocoderError
 
 class Location:
 
-    def __init__(self, lat, lng):
-        self.lat        = lat
+    def __init__(self, lng, lat):
         self.lng        = lng
+        self.lat        = lat
         self.valid      = False
         self._country   = None
         self._zones     = None
@@ -35,6 +35,13 @@ class Location:
         if isinstance(other, self.__class__):
             return not self.__eq__(other)
         return NotImplemented
+
+    def __str__(self):
+        if not self.isValid():
+            return "({0}, {1}) is an invalid location!".format(self.lng,
+                self.lat)
+        return "{0} ({1}, {2}) - ".format(self.country(), self.lng,
+            self.lat) + str(self.zones())
 
     def isValid(self):
         return self.valid

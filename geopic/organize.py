@@ -40,8 +40,15 @@ class Organize:
         if len(self._picinfo) > 0:
             self.valid = True
 
+    def __str__(self):
+        output = "Organizing '{}'\n".format(self.picFolderPath)
+        for (key, value) in self._picinfo.iteritems():
+            output += "    " + str(value) + "\n"
+        return output
+
     def isValid(self):
         return self.valid
+
 
 
 
